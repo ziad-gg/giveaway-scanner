@@ -53,7 +53,6 @@ class Base {
         return conditionsMet >= 5;
     };
 
-
     /**
      * @param {Message} message 
      * @returns {'Button' | 'Reaction' | 'Ended'}
