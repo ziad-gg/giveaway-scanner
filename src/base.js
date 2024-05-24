@@ -9,84 +9,48 @@ class Base {
     static async isGiveawayMessage(message) {
         const embed = message.embeds?.[0];
 
-        if (!embed) {
+        if (!embed || (message.components[0]?.components.length == 3 && message.author.username.includes('Dyno'))) {
             return false;
         }
-
 
         let conditionsMet = 0;
 
         // Validations
         if (message.content.includes('Review your giveaway')) {
-            // console.log('Validation failed: "Review your giveaway" found.\n');
             return false;
         }
 
-        // content Check
-        if (message.content.toLowerCase().includes('giveaway')) {
-            // console.log('Content check passed: "giveaway" found in message content.\n');
-            conditionsMet++;
-        }
+        // description
+        if (embed.description?.includes('React with')) conditionsMet++;
+        if (embed.description?.includes('Winners')) conditionsMet++;
+        if (embed.description?.includes('to participate')) conditionsMet++;
+        if (embed.description?.includes('button to enter')) conditionsMet++;
 
-        // title Check
-        if (embed.title) {
-            // console.log('Title check passed: Title found in embed.\n');
-            conditionsMet++;
-        }
+        if (embed.description?.toLowerCase().includes('ends')) conditionsMet++;
+        if (embed.description?.toLowerCase().includes('hosted by')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('time remaining')) conditionsMet++;
 
-        // description Check
-        if (embed.description 
-            && embed.description?.toLowerCase().includes('ends')
-            || embed.description?.toLowerCase()?.includes('time remaining')
-            || embed.description?.toLowerCase().includes('hosted by')
-            || embed.description?.includes('React with')
-            || embed.description?.includes('to participate!')
-        ) {
-            // console.log('Description check passed: "ends" or "hosted by" found in embed description.\n');
-            conditionsMet++;
-        }
+        // footer
+        if (embed.footer?.text?.toLowerCase?.().includes?.('ends at')) conditionsMet++;
+        if (embed.footer?.text?.toLowerCase?.()?.includes('winner')) conditionsMet++;
 
-        if (embed.fields.find(f => f.name === 'Time Remaining')) {
-            conditionsMet++;
-        }
+        // fields 
+        if (embed.fields?.find(f => f.name == 'Hosted By')) conditionsMet++;
+        if (embed.fields?.find(f => f.name == 'Time Remaining')) conditionsMet++;
 
-        if (embed.fields.find(f => f.name === 'Hosted By')) {
-            conditionsMet++;
-        }
+        // author
+        if (message.author.username.toLowerCase().includes('giveaway')) conditionsMet++;
+        if (message.author.bot) conditionsMet++;
 
-        // footer Check
-        if (embed.footer?.text?.toLowerCase?.().includes?.('ends at') || embed?.footer?.text?.toLowerCase?.()?.includes('winner(s)')) {
-            // console.log('Footer check passed: "ends at" found in embed footer.\n');
-            conditionsMet++;
-        }
-
-        // button Check
-        if (message.components?.[0]?.components?.some(b => b.type === 'BUTTON')) {
-            // console.log('Button check passed: Button found in message components.\n');
-            conditionsMet++;
-        }
-
-        // username Check
-        if (message.author?.username?.toLowerCase().includes('giveaway') && message.author.bot) {
-            // console.log('Username check passed: "giveaway" found in author username and author is a bot.\n');
-            conditionsMet++;
-        }
-
-        if (message.author.username.includes('Apollo')) {
-            // console.log('Username check passed: "apollo" found in author username.\n');
-            conditionsMet++;
-        }
-
-        if ((await database.get('whitelist')).includes(message.author.id)) {
-            conditionsMet++;
-        }
+        // utils
+        if ((await database.get('whitelist')).includes(message.author.id)) conditionsMet++;
+        if (message.components?.[0]?.components?.some(b => b.type === 'BUTTON')) conditionsMet++;
+        if (embed.url?.includes('dyno.gg')) conditionsMet++;
 
         console.log(`Total conditions met: ${conditionsMet}\n`);
-
         console.log('-'.repeat(25))
 
-        // if (conditionsMet >= 4) console.log(message)
-        return conditionsMet >= 4;
+        return conditionsMet >= 5;
     };
 
 
