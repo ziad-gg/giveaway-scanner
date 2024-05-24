@@ -1,79 +1,87 @@
 const { Message } = require('discord.js-selfbot-v13');
+const database = require('./database');
 
 class Base {
     /**
      * @param {Message} message 
-     * @returns {boolean} - Returns true if at least 3 giveaway conditions are met
+     * @returns {Promise<boolean>} - Returns true if at least 3 giveaway conditions are met
      */
-    static isGiveawayMessage(message) {
+    static async isGiveawayMessage(message) {
         const embed = message.embeds?.[0];
-        let conditionsMet = 0;
-
-        const logCondition = (condition, description) => {
-            if (condition) {
-                // console.log(`${description} - passed.\n`);
-                conditionsMet++;
-            } else {
-                // console.log(`${description} - failed.\n`);
-            }
-        };
 
         if (!embed) {
-            // console.log('No embed found.\n');
             return false;
         }
 
+
+        let conditionsMet = 0;
+
+        // Validations
         if (message.content.includes('Review your giveaway')) {
-            console.log('Validation failed: "Review your giveaway" found.\n');
+            // console.log('Validation failed: "Review your giveaway" found.\n');
             return false;
         }
 
-        // Content Check
-        logCondition(
-            message.content.toLowerCase().includes('giveaway'),
-            'Content check: "giveaway" found in message content'
-        );
+        // content Check
+        if (message.content.toLowerCase().includes('giveaway')) {
+            // console.log('Content check passed: "giveaway" found in message content.\n');
+            conditionsMet++;
+        }
 
-        // Title Check
-        logCondition(
-            embed.title && embed.title.toLowerCase().includes('giveaway'),
-            'Title check: "giveaway" found in embed title'
-        );
+        // title Check
+        if (embed.title) {
+            // console.log('Title check passed: Title found in embed.\n');
+            conditionsMet++;
+        }
 
-        // Description Check
-        logCondition(
-            embed.description?.toLowerCase().includes('ends') || embed.description?.toLowerCase().includes('hosted by'),
-            'Description check: "ends" or "hosted by" found in embed description'
-        );
+        // description Check
+        if (embed.description?.toLowerCase().includes('ends') || embed.description?.toLowerCase()?.includes('Time Remaining') || embed.description?.toLowerCase().includes('hosted by')) {
+            // console.log('Description check passed: "ends" or "hosted by" found in embed description.\n');
+            conditionsMet++;
+        }
 
-        // Footer Check
-        logCondition(
-            embed.footer?.text?.toLowerCase().includes('ends at'),
-            'Footer check: "ends at" found in embed footer'
-        );
+        if (embed.fields.find(f => f.name === 'Time Remaining')) {
+            conditionsMet++;
+        }
 
-        // Button Check
-        logCondition(
-            message.components?.[0]?.components?.some(b => b.type === 'BUTTON'),
-            'Button check: Button found in message components'
-        );
+        if (embed.fields.find(f => f.name === 'Hosted By')) {
+            conditionsMet++;
+        }
 
-        // Username Check for "giveaway" and bot
-        logCondition(
-            message.author?.username?.toLowerCase().includes('giveaway') && message.author.bot,
-            'Username check: "giveaway" found in author username and author is a bot'
-        );
+        // footer Check
+        if (embed.footer?.text?.toLowerCase().includes('ends at')) {
+            // console.log('Footer check passed: "ends at" found in embed footer.\n');
+            conditionsMet++;
+        }
 
-        // Username Check for "apollo"
-        logCondition(
-            message.author.username.toLowerCase().includes('apollo'),
-            'Username check: "apollo" found in author username'
-        );
+        // button Check
+        if (message.components?.[0]?.components?.some(b => b.type === 'BUTTON')) {
+            // console.log('Button check passed: Button found in message components.\n');
+            conditionsMet++;
+        }
+
+        // username Check
+        if (message.author?.username?.toLowerCase().includes('giveaway') && message.author.bot) {
+            // console.log('Username check passed: "giveaway" found in author username and author is a bot.\n');
+            conditionsMet++;
+        }
+
+        if (message.author.username.includes('Apollo')) {
+            // console.log('Username check passed: "apollo" found in author username.\n');
+            conditionsMet++;
+        }
+
+        if ((await database.get('whitelist')).includes(message.author.id)) {
+            conditionsMet++;
+        }
 
         console.log(`Total conditions met: ${conditionsMet}\n`);
 
+        console.log('-'.repeat(25))
+
+        // if (conditionsMet >= 4) console.log(message)
         return conditionsMet >= 4;
-    }
+    };
 
 
     /**

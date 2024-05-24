@@ -19,7 +19,7 @@ CommandBuilder.$N`check`.$M(async (message) => {
         console.log(`Checking ${messages.size} in ${channel.name}`);
 
         for (const message of messages.values()) {
-            if (!Base.isGiveawayMessage(message)) continue;
+            if (!await Base.isGiveawayMessage(message)) continue;
             const Type = Base.GiveAwayType(message);
 
             console.log(Type, ' ', channel.name)

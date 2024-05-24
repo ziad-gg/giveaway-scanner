@@ -12,9 +12,11 @@
   "license": "ISC",
   "dependencies": {
     "addons.djs": "^1.0.3",
+    "better-sqlite3": "^10.0.0",
     "discord.js": "^14.15.2",
     "discord.js-selfbot-v13": "^3.1.4",
-    "handler.djs": "^2.6.39"
+    "handler.djs": "^2.6.39",
+    "quick.db": "^9.1.7"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",

@@ -8,7 +8,7 @@ EventBuilder.$N`messageCreate`.$E(Execution).$L();
  * @param {Message} message 
  */
 async function Execution(message) {
-    if (Base.isGiveawayMessage(message)) {
+    if (await Base.isGiveawayMessage(message)) {
         const Type = Base.GiveAwayType(message);
 
         if (Type == 'Button') {
