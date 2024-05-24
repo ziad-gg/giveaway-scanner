@@ -7,33 +7,74 @@ class Base {
      */
     static isGiveawayMessage(message) {
         const embed = message.embeds?.[0];
-        if (!embed) return false;
-
         let conditionsMet = 0;
 
-        // Validations
-        if (message.content.includes('Review your giveaway')) return false;
+        const logCondition = (condition, description) => {
+            if (condition) {
+                // console.log(`${description} - passed.\n`);
+                conditionsMet++;
+            } else {
+                // console.log(`${description} - failed.\n`);
+            }
+        };
 
-        // content Check
-        if (message.content.toUpperCase().includes('GIVEAWAY')) conditionsMet++;
+        if (!embed) {
+            // console.log('No embed found.\n');
+            return false;
+        }
 
-        // title Check
-        if (embed.title) conditionsMet++;
+        if (message.content.includes('Review your giveaway')) {
+            console.log('Validation failed: "Review your giveaway" found.\n');
+            return false;
+        }
 
-        // description Check
-        if (embed.description?.toLowerCase().includes('ends') || embed.description?.toLowerCase().includes('hosted by')) conditionsMet++;
+        // Content Check
+        logCondition(
+            message.content.toLowerCase().includes('giveaway'),
+            'Content check: "giveaway" found in message content'
+        );
 
-        // footer Check
-        if (embed.footer?.text?.toLowerCase().includes('ends at')) conditionsMet++;
+        // Title Check
+        logCondition(
+            embed.title && embed.title.toLowerCase().includes('giveaway'),
+            'Title check: "giveaway" found in embed title'
+        );
 
-        // button Check
-        if (message.components?.[0]?.components?.some(b => b.type === 'BUTTON')) conditionsMet++;
+        // Description Check
+        logCondition(
+            embed.description?.toLowerCase().includes('ends') || embed.description?.toLowerCase().includes('hosted by'),
+            'Description check: "ends" or "hosted by" found in embed description'
+        );
 
-        // username Check
-        if (message.author?.username?.toLowerCase().includes('giveaway')) conditionsMet++;
+        // Footer Check
+        logCondition(
+            embed.footer?.text?.toLowerCase().includes('ends at'),
+            'Footer check: "ends at" found in embed footer'
+        );
 
-        return conditionsMet >= 3;
-    };
+        // Button Check
+        logCondition(
+            message.components?.[0]?.components?.some(b => b.type === 'BUTTON'),
+            'Button check: Button found in message components'
+        );
+
+        // Username Check for "giveaway" and bot
+        logCondition(
+            message.author?.username?.toLowerCase().includes('giveaway') && message.author.bot,
+            'Username check: "giveaway" found in author username and author is a bot'
+        );
+
+        // Username Check for "apollo"
+        logCondition(
+            message.author.username.toLowerCase().includes('apollo'),
+            'Username check: "apollo" found in author username'
+        );
+
+        console.log(`Total conditions met: ${conditionsMet}\n`);
+
+        return conditionsMet >= 4;
+    }
+
 
     /**
      * @param {Message} message 

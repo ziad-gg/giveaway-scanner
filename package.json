@@ -4,7 +4,8 @@
   "description": "Automatic participation in giveaway (discord-self)",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node .",
+    "watch": "npx nodemon ."
   },
   "keywords": [],
   "author": "",
@@ -12,7 +13,8 @@
   "dependencies": {
     "addons.djs": "^1.0.3",
     "discord.js": "^14.15.2",
-    "discord.js-selfbot-v13": "^3.1.4"
+    "discord.js-selfbot-v13": "^3.1.4",
+    "handler.djs": "^2.6.39"
   },
   "devDependencies": {
     "dotenv": "^16.4.5",
