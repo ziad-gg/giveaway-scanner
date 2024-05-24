@@ -9,3 +9,12 @@ CommandBuilder.$N`add`.$M(async (message) => {
 
     message.react('✅');
 });
+
+CommandBuilder.$N`remove`.$M(async (message) => {
+    const user = message.mentions.members.at(0);
+    if (!user || !user.user.bot) return message.react('❌');
+
+    database.pull('whitelist', user.user.id);
+
+    message.react('✅');
+});
