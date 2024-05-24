@@ -24,11 +24,13 @@ class Base {
         if (embed.description?.includes('React with')) conditionsMet++;
         if (embed.description?.includes('Winners')) conditionsMet++;
         if (embed.description?.includes('to participate')) conditionsMet++;
+        if (embed.description?.includes('to enter')) conditionsMet++;
         if (embed.description?.includes('button to enter')) conditionsMet++;
 
         if (embed.description?.toLowerCase().includes('ends')) conditionsMet++;
         if (embed.description?.toLowerCase().includes('hosted by')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('time remaining')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('participants')) conditionsMet++;
 
         // footer
         if (embed.footer?.text?.toLowerCase?.().includes?.('ends at')) conditionsMet++;
