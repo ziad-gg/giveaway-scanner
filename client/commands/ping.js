@@ -7,6 +7,8 @@ CommandBuilder.$N`ping` .$M(PingExecution)
 
 const startTime = Date.now();
 
+const env = process.env.RAILWAY_ENVIRONMENT_NAME || 'building';
+
 function Execution(message) {
     const currentTime = Date.now();
     const uptime = currentTime - startTime;
@@ -15,7 +17,7 @@ function Execution(message) {
     const embed = new WebEmbed()
         .setColor('#0099ff')
         .setTitle('Bot Uptime')
-        .setDescription(`🕒 Uptime: ${uptimeString}`)
+        .setDescription(`🕒 Uptime: ${uptimeString} ${env}`)
 
     message.reply(`${WebEmbed.hiddenEmbed}${embed}`);
 }
@@ -24,7 +26,7 @@ function PingExecution(message) {
     const embed = new WebEmbed()
         .setColor('#00ff00')
         .setTitle('Ping')
-        .setDescription(`🏓 Pong! Latency is ${Date.now() - message.createdTimestamp}ms.`)
+        .setDescription(`🏓 Pong! Latency is ${Date.now() - message.createdTimestamp}ms ${env}.`)
 
     message.reply(`${WebEmbed.hiddenEmbed}${embed}`);
 }
