@@ -35,7 +35,7 @@ class Base {
         }
 
         // description Check
-        if (embed.description?.toLowerCase().includes('ends') || embed.description?.toLowerCase()?.includes('Time Remaining') || embed.description?.toLowerCase().includes('hosted by')) {
+        if (embed.description?.toLowerCase().includes('ends') || embed.description?.toLowerCase()?.includes('time remaining') || embed.description?.toLowerCase().includes('hosted by')) {
             // console.log('Description check passed: "ends" or "hosted by" found in embed description.\n');
             conditionsMet++;
         }
@@ -49,7 +49,7 @@ class Base {
         }
 
         // footer Check
-        if (embed.footer?.text?.toLowerCase().includes('ends at')) {
+        if (embed.footer?.text?.toLowerCase?.().includes?.('ends at') || embed?.footer?.text?.toLowerCase?.()?.includes('winner(s)')) {
             // console.log('Footer check passed: "ends at" found in embed footer.\n');
             conditionsMet++;
         }
