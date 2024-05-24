@@ -1,0 +1,21 @@
+{
+  "name": "giveaway-scanner",
+  "version": "1.0.0",
+  "description": "Automatic participation in giveaway (discord-self)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "addons.djs": "^1.0.3",
+    "discord.js": "^14.15.2",
+    "discord.js-selfbot-v13": "^3.1.4"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "nodemon": "^3.1.0"
+  }
+}
