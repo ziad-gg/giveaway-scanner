@@ -40,7 +40,7 @@ class Base {
             || embed.description?.toLowerCase()?.includes('time remaining')
             || embed.description?.toLowerCase().includes('hosted by')
             || embed.description?.includes('React with')
-            || embed.description.includes('to participate!')
+            || embed.description?.includes('to participate!')
         ) {
             // console.log('Description check passed: "ends" or "hosted by" found in embed description.\n');
             conditionsMet++;
