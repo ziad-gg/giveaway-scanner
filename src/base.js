@@ -26,9 +26,14 @@ class Base {
         if (embed.description?.includes('to participate')) conditionsMet++;
         if (embed.description?.includes('to enter')) conditionsMet++;
         if (embed.description?.includes('button to enter')) conditionsMet++;
+        if (embed.description?.includes('is running a giveaway')) conditionsMet++;
+        if (embed.description?.includes('Click on the')) conditionsMet++;
 
-        if (embed.description?.toLowerCase().includes('ends')) conditionsMet++;
-        if (embed.description?.toLowerCase().includes('hosted by')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('prize')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('winners')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('results')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('ends')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('hosted by')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('time remaining')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('participants')) conditionsMet++;
 
