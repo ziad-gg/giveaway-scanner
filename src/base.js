@@ -9,17 +9,13 @@ class Base {
     static async isGiveawayMessage(message) {
         const embed = message.embeds?.[0];
 
-        if (!embed || (message.components[0]?.components.length == 3 && message.author.username.includes('Dyno'))) {
-            return false;
-        }
-
         let conditionsMet = 0;
 
         // Validations
-        if (message.content.includes('Review your giveaway')) {
-            return false;
-        }
-
+        if (!embed) return;
+        if (message.content.includes('Review your giveaway')) return false;
+        if (embed?.components?.[0]?.components?.length && embed?.components?.[0]?.components?.length == 3 && message.author.username.includes('Dyno')) return false;
+        
         // description
         if (embed.description?.includes('React with')) conditionsMet++;
         if (embed.description?.includes('Winners')) conditionsMet++;
@@ -30,7 +26,7 @@ class Base {
         if (embed.description?.includes('Click on the')) conditionsMet++;
 
         if (embed.description?.toLowerCase()?.includes('prize')) conditionsMet++;
-        if (embed.description?.toLowerCase()?.includes('winners')) conditionsMet++;
+        if (embed.description?.toLowerCase()?.includes('winner')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('results')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('ends')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('hosted by')) conditionsMet++;
