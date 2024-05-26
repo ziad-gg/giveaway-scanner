@@ -1,4 +1,3 @@
-const { WebEmbed } = require('discord.js-selfbot-v13');
 const { CommandBuilder } = require('handler.djs');
 const database = require('../../src/database.js');
 
@@ -23,22 +22,10 @@ CommandBuilder.$N`remove`.$M(async (message) => {
 CommandBuilder.$N`list`.$M(async (message) => {
     const whitelist = await database.get('whitelist');
 
-    // Calculate the maximum length of mentions to ensure consistent spacing
-    const mentions = whitelist.map(id => `<@${id}>`);
-    const maxMentionLength = Math.max(mentions.map(id => id.length));
-
-    console.log(maxMentionLength);
-
     const formattedList = whitelist.map(id => {
         const mention = `<@${id}>`;
-        const spaces = ' '.repeat(maxMentionLength);
-        return `${mention}${spaces}  \`(${id})\``;
+        return `${mention} \`(${id})\``;
     }).join('\n');
-
-    const embed = new WebEmbed()
-        .setColor('RANDOM')
-        .setTitle(`Found ${whitelist.length} in the whitelist`)
-        .setDescription(formattedList);
 
     message.reply(formattedList);
 });
