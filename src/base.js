@@ -33,6 +33,11 @@ class Base {
         if (embed.description?.toLowerCase()?.includes('time remaining')) conditionsMet++;
         if (embed.description?.toLowerCase()?.includes('participants')) conditionsMet++;
 
+        // arab giveaway bot
+        if (embed.description?.includes('للمشاركة في القيفواي')) conditionsMet++;
+        if (embed.description?.includes('الوقت المتبقي')) conditionsMet++;
+        if (embed.description?.includes('من قبل')) conditionsMet++;
+
         // footer
         if (embed.footer?.text?.toLowerCase?.().includes?.('ends at')) conditionsMet++;
         if (embed.footer?.text?.toLowerCase?.()?.includes('winner')) conditionsMet++;
