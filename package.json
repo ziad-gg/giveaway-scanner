@@ -1,15 +1,15 @@
 {
   "name": "giveaway-scanner",
-  "version": "1.0.0",
   "description": "Automatic participation in giveaway (discord-self)",
+  "version": "1.0.0",
   "main": "index.js",
+  "author": "Ziath",
+  "keywords": [],
+  "license": "ISC",
   "scripts": {
     "start": "node .",
     "watch": "npx nodemon ."
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "addons.djs": "^1.0.3",
     "better-sqlite3": "^10.0.0",

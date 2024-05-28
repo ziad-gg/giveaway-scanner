@@ -4,6 +4,7 @@ const { Application } = require('handler.djs');
 const client = new Client();
 
 new Application(client, {
+    prefix: '!me@',
     events: __dirname.concat('/client/events'),
     commands: __dirname.concat('/client/commands'),
     validations: __dirname.concat('/client/validations'),
