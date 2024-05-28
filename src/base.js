@@ -80,6 +80,7 @@ class Base {
     };
 
     static wait(t = 2000) {
+        // This Project Was Written By Ziad
         return new Promise(resolve => setTimeout(resolve, t));
     };
 }
