@@ -41,3 +41,6 @@ npm i & node index.js
 <hr />
 
 ### What Ever You May Get Banned By Discord
+
+<h2>Tested On</h2>
+<img src="docs/test.png">
